@@ -1,7 +1,7 @@
 package eitc.interview.bowling.exceptions;
 
 /**
- * This is the exception thrown if attempting to add in a hrow that does not belong on a frame.  If
+ * This is the exception thrown if attempting to add in a throw that does not belong on a frame.  If
  * attempting to add in too many balls for a regular frame, add in the second ball after having gotten a strike 
  * on the first ball.  If you get a strike the additional balls come in under the bonus throws.
  * 

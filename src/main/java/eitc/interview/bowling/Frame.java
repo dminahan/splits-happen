@@ -44,8 +44,8 @@ public class Frame {
 	
 	/**
 	 * Method to get the subScore, or really the frame total score including throws and bonus points. 
-	 * The subScore variable just holds realtime the bonus throw pins and this method sums that with 
-	 * The throws of the frame realtime.
+	 * The subScore variable just holds real-time the bonus throw pins and this method sums that with 
+	 * The throws of the frame real-time.
 	 * @return
 	 */
 	public int getSubScore() {
@@ -154,14 +154,8 @@ public class Frame {
 	 */
 	public boolean isFrameDone() {
 		return frameDone;
-		/*
-		if((this.hasStrike() && this.bonusThrowCount==2) || (this.hasSpare() && this.bonusThrowCount==1) || frameDone){
-			return true;
-		} else {
-			return false;
-		}
-		*/
 	}
+	
 	public void setFrameDone(boolean frameDone) {
 		this.frameDone = frameDone;
 	}
