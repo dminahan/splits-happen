@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,7 +42,8 @@ public class BowlingGameWithInputTest {
 	@Test
 	public void testProcessAllStrikesFile() {
 		try {
-			List<Throw> throwList=ParseInputScores.processFile("/allStrikesInput.txt");
+			ParseInputScores scoreParser=new ParseInputScores("/allStrikesInput.txt");
+			List<Throw> throwList=scoreParser.processThrows();
 			assertEquals(12,throwList.size());
 			
 			Iterator<Throw> throwItr=throwList.iterator();
@@ -60,7 +62,9 @@ public class BowlingGameWithInputTest {
 			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
 		} catch (InvalidBonusThrowForFrame e) {
 			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
-		}
+		} catch (IOException e) {
+			fail("Got IOException and was not expecting that.");
+		} 
 	}
 	
 	/**
@@ -69,7 +73,8 @@ public class BowlingGameWithInputTest {
 	@Test
 	public void testProcessSparesFile() {
 		try {
-			List<Throw> throwList=ParseInputScores.processFile("/sparesInput.txt");
+			ParseInputScores scoreParser=new ParseInputScores("/sparesInput.txt");
+			List<Throw> throwList=scoreParser.processThrows();
 			assertEquals(21,throwList.size());
 
 			Iterator<Throw> throwItr=throwList.iterator();
@@ -88,17 +93,19 @@ public class BowlingGameWithInputTest {
 			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
 		} catch (InvalidBonusThrowForFrame e) {
 			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
+		} catch (IOException e) {
+			fail("Got IOException and was not expecting that.");
 		}
 	}
 	
-	
 	/**
-	 * Method to parse the integer based file and use it in the bowling game
+	 * Method to parse the missed rolls file and use it in the bowling game
 	 */
 	@Test
-	public void testProcessIntegerFile() {
+	public void testMissedRollsFile() {
 		try {
-			List<Throw> throwList=ParseInputScores.processFile("/integerInput.txt");
+			ParseInputScores scoreParser=new ParseInputScores("/missInput.txt");
+			List<Throw> throwList=scoreParser.processThrows();
 			assertEquals(20,throwList.size());
 
 			Iterator<Throw> throwItr=throwList.iterator();
@@ -117,6 +124,70 @@ public class BowlingGameWithInputTest {
 			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
 		} catch (InvalidBonusThrowForFrame e) {
 			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
+		} catch (IOException e) {
+			fail("Got IOException and was not expecting that.");
+		}
+	}
+	
+	/**
+	 * Method to parse the mixed rolls file and use it in the bowling game
+	 */
+	@Test
+	public void testMixedRollsFile() {
+		try {
+			ParseInputScores scoreParser=new ParseInputScores("/mixedInput.txt");
+			List<Throw> throwList=scoreParser.processThrows();
+			assertEquals(17,throwList.size());
+
+			Iterator<Throw> throwItr=throwList.iterator();
+			while(throwItr.hasNext()){
+				Throw roll=throwItr.next();
+				game.turn(roll);
+			}
+			assertEquals(167,game.getScore());
+		} catch (FileNotFoundException e) {
+			fail("Got FileNotFoundException and was not expecting that.");
+		} catch (NoLineFoundException e) {
+			fail("Got NoLineFoundException and was not expecting that.");
+		} catch (InvalidThrowForGame e) {
+			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
+		} catch (InvalidThrowForFrame e) {
+			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
+		} catch (InvalidBonusThrowForFrame e) {
+			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
+		} catch (IOException e) {
+			fail("Got IOException and was not expecting that.");
+		}
+	}	
+	
+	/**
+	 * Method to parse the integer based file and use it in the bowling game as another valid input test
+	 */
+	@Test
+	public void testProcessIntegerFile() {
+		try {
+			ParseInputScores scoreParser=new ParseInputScores("/integerInput.txt");
+			List<Throw> throwList=scoreParser.processThrows();
+			assertEquals(20,throwList.size());
+
+			Iterator<Throw> throwItr=throwList.iterator();
+			while(throwItr.hasNext()){
+				Throw roll=throwItr.next();
+				game.turn(roll);
+			}
+			assertEquals(90,game.getScore());
+		} catch (FileNotFoundException e) {
+			fail("Got FileNotFoundException and was not expecting that.");
+		} catch (NoLineFoundException e) {
+			fail("Got NoLineFoundException and was not expecting that.");
+		} catch (InvalidThrowForGame e) {
+			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
+		} catch (InvalidThrowForFrame e) {
+			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
+		} catch (InvalidBonusThrowForFrame e) {
+			fail("Got InvalidBonusThrowForFrame and was not expecting that.");
+		} catch (IOException e) {
+			fail("Got IOException and was not expecting that.");
 		}
 	}
 	

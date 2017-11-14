@@ -3,6 +3,7 @@ package eitc.interview.bowling.util;
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,8 +33,9 @@ public class ParseInputScoresTest {
 	@Test
 	public void testProcessAllStrikesFile() {
 		try {
-//			List<Throw> throwList=ParseInputScores.processFile("test/resources/allStrikesInput.txt");
-			List<Throw> throwList=ParseInputScores.processFile("/allStrikesInput.txt");
+//			List<Throw> throwList=ParseInputScores.processFile("/allStrikesInput.txt");
+			ParseInputScores scoreParser=new ParseInputScores("/allStrikesInput.txt");
+			List<Throw> throwList=scoreParser.processThrows();
 			assertEquals(12,throwList.size());
 			
 			Iterator<Throw> throwItr=throwList.iterator();
@@ -45,6 +47,8 @@ public class ParseInputScoresTest {
 			fail("Got FileNotFoundException and was not expecting that.");
 		} catch (NoLineFoundException e) {
 			fail("Got NoLineFoundException and was not expecting that.");
+		} catch (IOException e) {
+			fail("Got IOException and was not expecting that.");
 		}
 	}
 	
@@ -54,8 +58,9 @@ public class ParseInputScoresTest {
 	@Test
 	public void testProcessSparesFile() {
 		try {
-//			List<Throw> throwList=ParseInputScores.processFile("test/resources/sparesInput.txt");
-			List<Throw> throwList=ParseInputScores.processFile("/sparesInput.txt");
+//			List<Throw> throwList=ParseInputScores.processFile("/sparesInput.txt");
+			ParseInputScores scoreParser=new ParseInputScores("/sparesInput.txt");
+			List<Throw> throwList=scoreParser.processThrows();
 			
 			Iterator<Throw> throwItr=throwList.iterator();
 			while(throwItr.hasNext()){
@@ -66,6 +71,8 @@ public class ParseInputScoresTest {
 			fail("Got FileNotFoundException and was not expecting that.");
 		} catch (NoLineFoundException e) {
 			fail("Got NoLineFoundException and was not expecting that.");
+		} catch (IOException e) {
+			fail("Got IOException and was not expecting that.");
 		}
 	}
 	
